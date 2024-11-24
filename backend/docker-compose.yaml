@@ -3,6 +3,7 @@ version: '3.7'
 services:
   contacts-api:
     container_name: api-container
+    image: pro-contacts-api
     build: .
     environment:
       DATABASE_URL: "host=contacts-db user=postgres password=postgres dbname=postgres sslmode=disable"
