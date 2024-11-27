@@ -2,9 +2,10 @@ version: '3.7'
 
 services:
   contacts-api:
-    container_name: api-container
+    container_name: pro-contacts-api
     image: pro-contacts-api
-    build: .
+    build:
+      context: ./backend
     environment:
       DATABASE_URL: "host=contacts-db user=postgres password=postgres dbname=postgres sslmode=disable"
     ports:
@@ -12,7 +13,7 @@ services:
     depends_on:
       - contacts-db
   contacts-db:
-    container_name: db-container
+    container_name: pro-contacts-db
     image: postgres:12
     environment:
       POSTGRES_PASSWORD: postgres
@@ -22,6 +23,11 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-
+  contacts-frontend:
+    container_name: pro-contacts-frontend
+    build:
+      context: ./frontend
+    ports:
+      - 3000:3000
 volumes:
   pgdata: {}
